@@ -7,7 +7,7 @@ from src.logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass 
-
+from src.components.data_transformation import DataTransformation, DataTransformationConfig
 
 @dataclass
 class DataInjectionConfig:
@@ -24,6 +24,7 @@ class DataInjection:
         logging.info("entered the data injection method ")
         try:
             df = pd.read_csv("notebook\data\stud.csv")
+            
             logging.info("read the dataset as dataframe")
 
             os.makedirs(os.path.dirname(self.injection_config.train_data_path), exist_ok=True)
@@ -47,4 +48,7 @@ class DataInjection:
 
 if __name__=="__main__":
     obj=DataInjection()
-    obj.initiate_data_injection()
+    train_data, test_data=obj.initiate_data_injection()
+
+    data_transformation = DataTransformation()
+    data_transformation.initiate_data_transformation(train_data, test_data)
