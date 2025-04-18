@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 import dill
 from sklearn.metrics import r2_score
-
+from sklearn.model_selection import GridSearchCV
 
 # from src.components import model_trainer
 from src.logger import logging
@@ -28,13 +28,18 @@ def save_object(file_path, obj):
             
 
 
-def evaluate_model(x_train, y_train, x_test, y_test, models):
+def evaluate_model(x_train, y_train, x_test, y_test, models, param):
     try:
         report = {}
 
         for i in range(len(models)):
             model =  list(models.values())[i]
+            paramtr = param[list(models.keys())[i]]
 
+            gs = GridSearchCV(model,paramtr, cv=5)
+            gs.fit(x_train, y_train)
+
+            model.set_params(**gs.best_params_)
             model.fit(x_train, y_train)
 
             y_train_pred = model.predict(x_train)
