@@ -45,8 +45,8 @@ class DataTransformation:
 
             )
 
-            logging.info(f"numerical columns scaling compleated :{num_features}")
-            logging.info(f"categorical columns encoding compleated:{cat_features}")
+            # logging.info(f"numerical columns scaling compleated :{num_features}")
+            # logging.info(f"categorical columns encoding compleated:{cat_features}")
 
 
             preprocessor = ColumnTransformer(
@@ -120,6 +120,6 @@ class DataTransformation:
 
             )
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e, sys) 
 
     
