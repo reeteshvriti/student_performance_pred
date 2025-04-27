@@ -7,5 +7,5 @@ xgboost
 catboost
 dill
 flask
-Procfile
+gunicorn
 # -e .
